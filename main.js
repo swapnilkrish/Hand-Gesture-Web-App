@@ -7,10 +7,10 @@ Webcam.set({
 
 camera = document.getElementById("camera");
 
-webcam.attach('#camera');
+Webcam.attach('#camera');
 
 function take_snapshot() {
-    webcam.snap(function (data_uri) {
+    Webcam.snap(function (data_uri) {
         document.getElementById("result").innerHTML = '<img id="captured_image" src="' + data_uri + '"/>';
     })
 }
@@ -23,19 +23,9 @@ function modelLoaded() {
 }
 
 function check() {
-    image = document.getElementById('captured_image');
+    img = document.getElementById('captured_image');
     classifier.classify(img, gotResult);
 }
-function speak() {
-    var synth = window.speechSynthesis;
-
-    speak_data = toSpeak;
-
-    var utterThis = new SpeechSynthesisUtterance(speak_data);
-
-    synth.speak(utterThis);
-}
-
 function gotResult(error, results) {
     if (error) {
         console.error(error);
@@ -60,4 +50,11 @@ function gotResult(error, results) {
         }
         speak();
     }
+}
+
+function speak() {
+    var synth = window.speechSynthesis;
+    speak_data = toSpeak;
+    var utterThis = new SpeechSynthesisUtterance(speak_data);
+    synth.speak(utterThis);
 }
