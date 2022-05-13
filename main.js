@@ -31,7 +31,33 @@ function speak() {
 
     speak_data = toSpeak;
 
-    var utterThis = new SpeechSynthesisUtterance(speak_data_1 + speak_data_2);
+    var utterThis = new SpeechSynthesisUtterance(speak_data);
 
     synth.speak(utterThis);
+}
+
+function gotResult(error, results) {
+    if (error) {
+        console.error(error);
+    } else {
+        console.log(results);
+        document.getElementById("result_emotion_name").innerHTML = results[0].label;
+        gesture = results[0].label;
+        toSpeak = "";
+
+        if (gesture == "V") {
+            toSpeak = "It means peace and love";
+            document.getElementById("result_object_gesture_icon").innerHTML = "&#9996;";
+        } else if (gesture == "Hello") {
+            toSpeak = "It's a greeting";
+            document.getElementById("result_object_gesture_icon").innerHTML = "&#58398;";
+        } else if (gesture == "Yow") {
+            toSpeak = "It's a cool greeting";
+            document.getElementById("result_object_gesture_icon").innerHTML = "&#129304;";
+        } else if (gesture == "Punch") {
+            toSpeak = "It shows punch action";
+            document.getElementById("result_object_gesture_icon").innerHTML = "&#57357;;";
+        }
+        speak();
+    }
 }
